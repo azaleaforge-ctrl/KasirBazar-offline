@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { AppShell } from "@/components/app-shell";
+import { SplashScreen } from "@/components/splash-screen";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
@@ -45,8 +46,13 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="Kasir Bazar" />
+        {/* Hide the splash if JS never runs (it is removed by SplashScreen) */}
+        <noscript>
+          <style>{`#splash{display:none!important}`}</style>
+        </noscript>
       </head>
       <body className="min-h-dvh font-sans text-ink">
+        <SplashScreen />
         <AppShell>{children}</AppShell>
       </body>
     </html>
