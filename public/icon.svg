@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Kasir Bazar">
+  <rect width="512" height="512" rx="112" fill="#0F766E"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="30" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M205 205 C205 150 307 150 307 205"/>
+    <path d="M165 215 L347 215 L322 360 L190 360 Z"/>
+    <path d="M205 215 L222 360 M256 215 L256 360 M307 215 L290 360"/>
+  </g>
+</svg>

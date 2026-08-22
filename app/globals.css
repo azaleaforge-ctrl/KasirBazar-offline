@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@theme {
+  /* Typography */
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-display: var(--font-bricolage), var(--font-jakarta), ui-sans-serif,
+    sans-serif;
+
+  /* Surfaces & ink */
+  --color-page: #f4f7f9;
+  --color-card: #ffffff;
+  --color-ink: #0f172a;
+  --color-ink-soft: #475569;
+  --color-ink-faint: #94a3b8;
+  --color-line: #e4eaf0;
+
+  /* Accent — deep bazar teal */
+  --color-accent: #0f766e;
+  --color-accent-strong: #0b5d57;
+  --color-accent-deep: #134e4a;
+  --color-accent-soft: #99f6e4;
+  --color-accent-tint: #effcf9;
+
+  /* Elevation */
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.05),
+    0 12px 32px -16px rgb(15 23 42 / 0.14);
+  --shadow-pop: 0 32px 64px -24px rgb(15 23 42 / 0.28);
+
+  /* Shape */
+  --radius-card: 1.25rem;
+}
+
+@utility surface {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+body {
+  background-color: var(--color-page);
+  background-image: radial-gradient(
+    rgb(15 23 42 / 0.04) 1px,
+    transparent 1.5px
+  );
+  background-size: 24px 24px;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--color-accent-soft);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Slim scrollbars inside panels & sheets */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
+}
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
