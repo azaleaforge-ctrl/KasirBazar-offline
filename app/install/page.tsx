@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import {
   Apple,
   Check,
-  Globe,
   Monitor,
   MonitorSmartphone,
   Smartphone,
@@ -18,7 +17,7 @@ const BENEFITS = [
   },
   {
     title: "Akses offline penuh",
-    desc: "Jualan tetap jalan tanpa internet — data tersimpan di perangkat.",
+    desc: "Jualan tetap jalan tanpa internet - data tersimpan di perangkat.",
   },
   {
     title: "Lebih cepat dibuka",
@@ -117,7 +116,7 @@ export default function InstallPage() {
           <div className="flex flex-col items-center gap-3 border-t border-dashed border-line pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
             <InstallButton />
             <p className="max-w-[220px] text-center text-[11px] font-medium leading-relaxed text-ink-faint">
-              Setelah terpasang, buka dari ikon layar utama — bukan dari
+              Setelah terpasang, buka dari ikon layar utama - bukan dari
               browser.
             </p>
           </div>
@@ -174,22 +173,6 @@ export default function InstallPage() {
           ))}
         </motion.div>
       </section>
-
-      {/* Secure-context note */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.15, duration: 0.35 }}
-        className="mt-5 flex items-start gap-2.5 rounded-xl bg-page px-4 py-3.5 text-[11px] font-medium leading-relaxed text-ink-soft"
-      >
-        <Globe size={14} className="mt-0.5 shrink-0 text-accent" />
-        <span>
-          Kasir Bazar sudah tayang di Vercel lewat HTTPS, jadi instal otomatis
-          langsung tersedia. Buka lewat browser, lalu pilih “Pasang” di address
-          bar atau menu ⋮. Langkah manual di atas tetap bisa dipakai di semua
-          perangkat jika tombol instal tidak muncul.
-        </span>
-      </motion.div>
     </div>
   );
 }

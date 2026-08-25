@@ -194,7 +194,7 @@ function DesktopShell({ children }: { children: React.ReactNode }) {
 
         <div className="mt-auto flex items-start gap-2 rounded-xl bg-page px-3 py-2.5 text-[11px] font-medium leading-snug text-ink-soft">
           <WifiOff size={14} className="mt-0.5 shrink-0 text-accent" />
-          Mode offline — data tersimpan aman di perangkat ini.
+          Mode offline - data tersimpan aman di perangkat ini.
         </div>
       </aside>
 

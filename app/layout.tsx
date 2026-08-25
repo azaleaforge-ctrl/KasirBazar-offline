@@ -17,9 +17,9 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "Kasir Bazar — Kasir Offline",
+  title: "Kasir Bazar - Kasir Offline",
   description:
-    "Aplikasi kasir offline untuk bazar & warung. Catat penjualan, kelola produk, dan lihat laporan — tanpa internet.",
+    "Aplikasi kasir offline untuk bazar & warung. Catat penjualan, kelola produk, dan lihat laporan - tanpa internet.",
 };
 
 export const viewport: Viewport = {

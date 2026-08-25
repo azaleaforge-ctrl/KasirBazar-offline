@@ -25,7 +25,7 @@ function inFinderZone(x: number, y: number): boolean {
   );
 }
 
-/** Mock QRIS code — a decorative placeholder, not a scannable payment code. */
+/** Mock QRIS code - a decorative placeholder, not a scannable payment code. */
 export function QrisPlaceholder({ seed }: { seed: number }) {
   const rects = useMemo(() => {
     const rand = mulberry32(seed);
@@ -79,7 +79,7 @@ export function QrisPlaceholder({ seed }: { seed: number }) {
         Minta pembeli memindai kode QRIS ini
       </p>
       <p className="-mt-1 text-[11px] font-medium text-ink-faint">
-        Contoh tampilan — hubungkan ke akun QRIS asli untuk menerima pembayaran.
+        Contoh tampilan - hubungkan ke akun QRIS asli untuk menerima pembayaran.
       </p>
     </div>
   );

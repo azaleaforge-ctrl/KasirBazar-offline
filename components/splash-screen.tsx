@@ -41,7 +41,7 @@ export function SplashScreen() {
                 className="absolute inset-0 animate-spin rounded-full border-[3px] border-accent/15 border-t-accent"
                 style={{ animationDuration: "1.2s" }}
               />
-              {/* Basket mark — inlined from public/icon.svg (zero extra request) */}
+              {/* Basket mark - inlined from public/icon.svg (zero extra request) */}
               <svg
                 viewBox="0 0 512 512"
                 className="h-16 w-16 drop-shadow-sm"

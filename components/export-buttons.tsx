@@ -57,7 +57,7 @@ export function ExportButtons({
     try {
       await importJSON(file);
       playClick();
-      setStatus({ kind: "ok", msg: "Impor berhasil — data dimuat ulang." });
+      setStatus({ kind: "ok", msg: "Impor berhasil - data dimuat ulang." });
       onImported?.();
     } catch {
       playError();

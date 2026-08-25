@@ -32,7 +32,7 @@ async function shrinkToDataUrl(file: File): Promise<string> {
     url = canvas.toDataURL("image/jpeg", quality);
   }
   if (url.length > TARGET_BYTES) {
-    // honey: single extra downscale pass — enough for counter photos
+    // honey: single extra downscale pass - enough for counter photos
     canvas.width = Math.round(width * 0.6);
     canvas.height = Math.round(height * 0.6);
     ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);

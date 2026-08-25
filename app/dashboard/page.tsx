@@ -53,7 +53,7 @@ export default function DashboardPage() {
     );
     const avg = transactions.length > 0 ? revenue / transactions.length : 0;
 
-    // Revenue per day — fill the gap between first and last sale (max 14 days)
+    // Revenue per day - fill the gap between first and last sale (max 14 days)
     const byDay = new Map<string, number>();
     for (const t of transactions) {
       const key = dayKey(t.createdAt);
