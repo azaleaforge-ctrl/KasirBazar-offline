@@ -12,7 +12,8 @@ import {
   QrCode,
   ShoppingBasket,
 } from "lucide-react";
-import { addTransaction } from "@/lib/db";
+import { addTransaction, getProducts, updateProduct } from "@/lib/db";
+import { evaluateStock } from "@/lib/stock";
 import { useCart } from "@/lib/store";
 import type { PaymentMethod } from "@/lib/types";
 import { formatRupiah } from "@/lib/format";
@@ -66,6 +67,24 @@ export default function CheckoutPage() {
         method,
         createdAt: Date.now(),
       });
+
+      // Decrement stock for each sold item and fire low-stock alerts.
+      try {
+        const all = await getProducts();
+        const byId = new Map(all.map((p) => [p.id, p]));
+        for (const item of items) {
+          const p = byId.get(item.productId);
+          if (!p || p.stock == null) continue; // only track explicit stock
+          const next = Math.max(0, (p.stock ?? 0) - item.qty);
+          if (next === p.stock) continue;
+          const updated = { ...p, stock: next };
+          await updateProduct(updated);
+          evaluateStock(updated);
+        }
+      } catch {
+        /* stock update is best-effort */
+      }
+
       playSuccess();
       setDone({ amount: total, method });
       useCart.getState().clearCart();

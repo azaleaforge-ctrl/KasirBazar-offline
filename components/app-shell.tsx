@@ -23,6 +23,8 @@ import { useOnlineStatus } from "./use-online";
 import { requestOpenCart } from "./cart-bus";
 import { CartPanel } from "./cart-panel";
 import { MobileCartDock } from "./cart-sheet";
+import { Toast } from "./stock-toast";
+import { NotificationBell } from "./notification-bell";
 
 interface NavItem {
   href: string;
@@ -209,6 +211,7 @@ function DesktopShell({ children }: { children: React.ReactNode }) {
               {title}
             </span>
           </div>
+          <NotificationBell />
         </header>
 
         <div className="flex flex-1 items-stretch">
@@ -216,6 +219,8 @@ function DesktopShell({ children }: { children: React.ReactNode }) {
           {onPos && <CartPanel />}
         </div>
       </div>
+
+      <Toast />
     </div>
   );
 }
@@ -251,15 +256,18 @@ function MobileShell({ children }: { children: React.ReactNode }) {
           </Link>
 
           {pathname !== "/checkout" && (
-            <button
-              type="button"
-              onClick={openCart}
-              aria-label={`Buka keranjang`}
-              className="relative grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-line bg-card text-ink-soft transition-colors hover:text-accent"
-            >
-              <ShoppingCart size={19} strokeWidth={2.2} />
-              <CartBadge />
-            </button>
+            <span className="flex shrink-0 items-center gap-2">
+              <NotificationBell />
+              <button
+                type="button"
+                onClick={openCart}
+                aria-label={`Buka keranjang`}
+                className="relative grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-line bg-card text-ink-soft transition-colors hover:text-accent"
+              >
+                <ShoppingCart size={19} strokeWidth={2.2} />
+                <CartBadge />
+              </button>
+            </span>
           )}
         </div>
       </header>
@@ -310,6 +318,8 @@ function MobileShell({ children }: { children: React.ReactNode }) {
           })}
         </div>
       </nav>
+
+      <Toast />
     </div>
   );
 }

@@ -21,6 +21,10 @@ export function ProductForm({
     product?.price != null ? String(product.price) : ""
   );
   const [category, setCategory] = useState(product?.category ?? "");
+  const [stock, setStock] = useState(String(product?.stock ?? 0));
+  const [reminder, setReminder] = useState(
+    String(product?.stockReminder ?? 0)
+  );
   const [photo, setPhoto] = useState<string | undefined>(product?.photo);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -46,6 +50,8 @@ export function ProductForm({
         name: cleanName,
         price: cleanPrice,
         category: category.trim() || undefined,
+        stock: Number(stock),
+        stockReminder: Number(reminder),
         photo,
         createdAt: product?.createdAt ?? Date.now(),
       });
@@ -123,6 +129,39 @@ export function ProductForm({
               placeholder="Minuman"
               className="h-11 w-full rounded-xl border border-line bg-page px-3.5 text-sm font-medium outline-none transition-colors placeholder:text-ink-faint focus:border-accent focus:bg-card"
             />
+          </label>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <label className="block">
+            <span className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-ink-soft">
+              {product ? "Stok" : "Stok Awal"}
+            </span>
+            <input
+              type="number"
+              min={0}
+              value={stock}
+              onChange={(e) => setStock(e.target.value)}
+              placeholder="0"
+              className="h-11 w-full rounded-xl border border-line bg-page px-3.5 text-sm font-semibold tabular-nums outline-none transition-colors placeholder:text-ink-faint focus:border-accent focus:bg-card"
+            />
+          </label>
+
+          <label className="block">
+            <span className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-ink-soft">
+              Peringatan Stok
+            </span>
+            <input
+              type="number"
+              min={0}
+              value={reminder}
+              onChange={(e) => setReminder(e.target.value)}
+              placeholder="0"
+              className="h-11 w-full rounded-xl border border-line bg-page px-3.5 text-sm font-semibold tabular-nums outline-none transition-colors placeholder:text-ink-faint focus:border-accent focus:bg-card"
+            />
+            <span className="mt-1 block text-[11px] font-medium leading-snug text-ink-faint">
+              Notifikasi muncul saat stok ≤ angka ini (0 = mati)
+            </span>
           </label>
         </div>
 

@@ -7,6 +7,7 @@ export interface Product {
   photo?: string;
   category?: string;
   stock?: number;
+  stockReminder?: number;
   createdAt: number;
 }
 

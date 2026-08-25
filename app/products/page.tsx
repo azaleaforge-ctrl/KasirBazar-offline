@@ -7,6 +7,8 @@ import { addProduct, deleteProduct, getProducts, updateProduct } from "@/lib/db"
 import type { Product } from "@/lib/types";
 import { formatRupiah } from "@/lib/format";
 import { playClick, playError } from "@/lib/sound";
+import { evaluateStock } from "@/lib/stock";
+import { useProductFocus } from "@/lib/notifications";
 import { ProductForm } from "@/components/product-form";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { EmptyState } from "@/components/empty-state";
@@ -43,6 +45,15 @@ export default function ProductsPage() {
     return () => clearTimeout(t);
   }, [notice]);
 
+  const focusId = useProductFocus((s) => s.focusId);
+  const clearFocus = useProductFocus((s) => s.clear);
+  useEffect(() => {
+    if (!focusId) return;
+    const target = products.find((p) => p.id === focusId);
+    if (target) setEditing(target);
+    clearFocus();
+  }, [focusId, products, clearFocus]);
+
   const categories = useMemo(() => collectCategories(products), [products]);
 
   const filtered = useMemo(
@@ -68,6 +79,7 @@ export default function ProductsPage() {
         setNotice("Produk baru berhasil disimpan.");
       }
       playClick();
+      evaluateStock(product);
       setAdding(false);
       setEditing(null);
       await reload();
@@ -173,7 +185,15 @@ export default function ProductsPage() {
               className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3"
             >
               <AnimatePresence initial={false}>
-                {filtered.map((p) => (
+                {filtered.map((p) => {
+                  const reminder = p.stockReminder ?? 0;
+                  const empty = p.stock != null && p.stock <= 0;
+                  const low =
+                    p.stock != null &&
+                    reminder > 0 &&
+                    p.stock > 0 &&
+                    p.stock <= reminder;
+                  return (
                   <motion.li
                     key={p.id}
                     layout
@@ -186,7 +206,13 @@ export default function ProductsPage() {
                         transition: { type: "spring", stiffness: 280, damping: 26 },
                       },
                     }}
-                    className="surface flex items-center gap-3.5 rounded-card p-3.5"
+                    className={`surface flex items-center gap-3.5 rounded-card p-3.5 ${
+                      empty
+                        ? "ring-1 ring-red-300 bg-red-50/70"
+                        : low
+                          ? "ring-1 ring-amber-300 bg-amber-50/70"
+                          : ""
+                    }`}
                   >
                     <span className="grid h-16 w-16 shrink-0 place-items-center overflow-hidden rounded-xl bg-accent-tint text-accent/60">
                       {p.photo ? (
@@ -209,6 +235,20 @@ export default function ProductsPage() {
                       <span className="mt-1 block font-display text-[15px] font-extrabold tabular-nums text-accent-deep">
                         {formatRupiah(p.price)}
                       </span>
+                      {p.stock != null &&
+                        (empty ? (
+                          <span className="text-[11px] font-semibold text-red-600">
+                            Stok habis
+                          </span>
+                        ) : low ? (
+                          <span className="text-[11px] font-semibold text-amber-600">
+                            Stok menipis: {p.stock}
+                          </span>
+                        ) : (
+                          <span className="text-[11px] font-medium text-ink-faint">
+                            Stok: {p.stock}
+                          </span>
+                        ))}
                     </span>
 
                     <span className="flex shrink-0 flex-col gap-1">
@@ -236,7 +276,8 @@ export default function ProductsPage() {
                       </button>
                     </span>
                   </motion.li>
-                ))}
+                  );
+                })}
               </AnimatePresence>
             </motion.ul>
           )}
