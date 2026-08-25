@@ -11,6 +11,11 @@ import {
 import { playClick } from "@/lib/sound";
 
 const THEME = {
+  hidden: {
+    card: "bg-card ring-1 ring-line",
+    circle: "bg-accent-tint text-accent",
+    button: "text-accent-strong hover:bg-accent-tint",
+  },
   warn: {
     card: "bg-amber-50/80 ring-1 ring-amber-200",
     circle: "bg-amber-100 text-amber-600",
@@ -53,7 +58,7 @@ export function ResetCycleWidget() {
     }
   }, []);
 
-  if (!info || info.status === "hidden") return null;
+  if (!info) return null;
 
   const theme = THEME[info.status];
 
