@@ -62,7 +62,8 @@ export function ProductFilters({
         className="-mx-4 flex gap-1.5 overflow-x-auto px-4 pb-0.5 lg:mx-0 lg:flex-wrap lg:overflow-visible lg:px-0"
       >
         {chips.map((c) => {
-          const active = c === category;
+          const value = c === "Semua" ? "" : c;
+          const active = category === value;
           return (
             <motion.button
               key={c}
@@ -72,7 +73,7 @@ export function ProductFilters({
               onClick={() => {
                 if (!active) {
                   playClick();
-                  onCategory(c);
+                  onCategory(value);
                 }
               }}
               className={`h-8 shrink-0 rounded-full border px-3.5 text-xs font-bold transition-colors ${
