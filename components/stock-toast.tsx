@@ -21,7 +21,6 @@ function message(n: AppNotification): string {
 
 export function Toast() {
   const items = useNotifications((s) => s.items);
-  const dismiss = useNotifications((s) => s.dismiss);
   const markRead = useNotifications((s) => s.markRead);
   const router = useRouter();
   const [toasts, setToasts] = useState<AppNotification[]>([]);
@@ -36,14 +35,13 @@ export function Toast() {
     }
   }, []);
 
+  // Hiding the popup only — the notification stays in the bell list.
   const dismissToast = (id: string) => {
     const timer = timers.current.get(id);
     if (timer) {
       clearTimeout(timer);
       timers.current.delete(id);
     }
-    markRead(id);
-    dismiss(id);
     setToasts((prev) => prev.filter((t) => t.id !== id));
   };
 
@@ -75,6 +73,7 @@ export function Toast() {
   const openProduct = (n: AppNotification) => {
     useProductFocus.getState().focus(n.productId);
     router.push("/products");
+    markRead(n.id);
     dismissToast(n.id);
   };
 

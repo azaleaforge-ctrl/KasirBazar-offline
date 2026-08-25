@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { AlertTriangle, Bell, PackageX } from "lucide-react";
+import { AlertTriangle, Bell, PackageX, X } from "lucide-react";
 import {
   useNotifications,
   useProductFocus,
@@ -23,6 +23,8 @@ export function NotificationBell() {
   const items = useNotifications((s) => s.items);
   const markRead = useNotifications((s) => s.markRead);
   const markAllRead = useNotifications((s) => s.markAllRead);
+  const dismiss = useNotifications((s) => s.dismiss);
+  const clear = useNotifications((s) => s.clear);
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -95,22 +97,36 @@ export function NotificationBell() {
             transition={spring}
             className="surface absolute right-0 top-12 z-50 w-[min(88vw,340px)] overflow-hidden rounded-card shadow-pop"
           >
-            <div className="flex items-center justify-between border-b border-line px-4 py-3">
+            <div className="flex items-center justify-between gap-2 border-b border-line px-4 py-3">
               <span className="font-display text-sm font-extrabold tracking-tight">
                 Notifikasi
               </span>
-              {unread > 0 && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    playClick();
-                    markAllRead();
-                  }}
-                  className="text-xs font-bold text-accent transition-colors hover:text-accent-strong"
-                >
-                  Tandai dibaca
-                </button>
-              )}
+              <div className="flex items-center gap-3">
+                {unread > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      playClick();
+                      markAllRead();
+                    }}
+                    className="text-xs font-bold text-accent transition-colors hover:text-accent-strong"
+                  >
+                    Tandai dibaca
+                  </button>
+                )}
+                {items.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      playClick();
+                      clear();
+                    }}
+                    className="text-xs font-bold text-ink-faint transition-colors hover:text-red-600"
+                  >
+                    Hapus semua
+                  </button>
+                )}
+              </div>
             </div>
 
             {items.length === 0 ? (
@@ -120,11 +136,11 @@ export function NotificationBell() {
             ) : (
               <ul className="max-h-80 overflow-y-auto">
                 {items.map((n) => (
-                  <li key={n.id}>
+                  <li key={n.id} className="relative">
                     <button
                       type="button"
                       onClick={() => openProduct(n)}
-                      className="flex w-full items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-page"
+                      className="flex w-full items-start gap-3 px-4 py-3 pr-10 text-left transition-colors hover:bg-page"
                     >
                       <span
                         className={`mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg ${
@@ -157,6 +173,18 @@ export function NotificationBell() {
                           className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-accent"
                         />
                       )}
+                    </button>
+                    <button
+                      type="button"
+                      aria-label="Hapus notifikasi"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        playClick();
+                        dismiss(n.id);
+                      }}
+                      className="absolute right-2 top-2 grid h-7 w-7 place-items-center rounded-lg text-ink-faint transition-colors hover:bg-white/70 hover:text-ink"
+                    >
+                      <X size={14} strokeWidth={2.4} />
                     </button>
                   </li>
                 ))}
