@@ -107,27 +107,29 @@ export function playError(): void {
 // Pleasant two-tone chime for low-stock / out-of-stock alerts.
 export function playNotify(): void {
   if (!isBrowser()) return;
-  unlock();
-  const ctx = getAudioContext();
-  if (!ctx) return;
-  if (ctx.state === "suspended") void ctx.resume();
-  const now = ctx.currentTime;
-  const tones = [
-    { f: 660, t: 0 },
-    { f: 880, t: 0.12 },
-  ];
-  for (const tone of tones) {
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = "sine";
-    osc.frequency.value = tone.f;
-    const start = now + tone.t;
-    gain.gain.setValueAtTime(0.0001, start);
-    gain.gain.exponentialRampToValueAtTime(0.18, start + 0.02);
-    gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.28);
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start(start);
-    osc.stop(start + 0.3);
+  try {
+    unlock();
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    if (ctx.state === "suspended") void ctx.resume();
+    const now = ctx.currentTime;
+    const beep = (freq: number, offset: number, dur: number) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.value = freq;
+      const t0 = now + offset;
+      gain.gain.setValueAtTime(0.0001, t0);
+      gain.gain.exponentialRampToValueAtTime(0.25, t0 + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(t0);
+      osc.stop(t0 + dur + 0.02);
+    };
+    beep(784, 0, 0.18); // G5
+    beep(1047, 0.12, 0.24); // C6
+  } catch {
+    /* audio not available — ignore */
   }
 }

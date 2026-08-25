@@ -5,7 +5,7 @@ import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { Package, Plus } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { formatRupiah } from "@/lib/format";
-import { playAdd } from "@/lib/sound";
+import { playAdd, playError } from "@/lib/sound";
 import { useCart } from "@/lib/store";
 
 export const gridVariants: Variants = {
@@ -24,9 +24,23 @@ const cardVariants: Variants = {
 
 export function ProductCard({ product }: { product: Product }) {
   const addToCart = useCart((s) => s.addToCart);
+  const cartQty = useCart(
+    (s) => s.items.find((i) => i.productId === product.id)?.qty ?? 0
+  );
   const [burst, setBurst] = useState(0);
 
+  const stock = product.stock;
+  const reminder = product.stockReminder ?? 0;
+  const out = stock != null && stock <= 0;
+  const low = stock != null && reminder > 0 && stock > 0 && stock <= reminder;
+  const atLimit = stock != null && cartQty >= stock;
+  const blocked = out || atLimit;
+
   const handleAdd = () => {
+    if (stock != null && cartQty >= stock) {
+      playError();
+      return;
+    }
     addToCart(product);
     playAdd();
     setBurst((b) => b + 1);
@@ -36,10 +50,11 @@ export function ProductCard({ product }: { product: Product }) {
     <motion.button
       type="button"
       variants={cardVariants}
-      whileTap={{ scale: 0.96 }}
+      whileTap={blocked ? undefined : { scale: 0.96 }}
       onClick={handleAdd}
+      disabled={blocked}
       aria-label={`Tambah ${product.name} ke keranjang`}
-      className="surface group relative overflow-hidden rounded-card p-3 text-left transition-shadow duration-300 hover:shadow-pop"
+      className={`surface group relative overflow-hidden rounded-card p-3 text-left transition-shadow duration-300 hover:shadow-pop ${blocked ? "cursor-not-allowed opacity-60" : ""}`}
     >
       <span className="relative block aspect-square overflow-hidden rounded-xl bg-gradient-to-br from-accent-tint to-white">
         {product.photo ? (
@@ -72,6 +87,25 @@ export function ProductCard({ product }: { product: Product }) {
       <span className="mt-0.5 block font-display text-[15px] font-extrabold tabular-nums text-accent-deep">
         {formatRupiah(product.price)}
       </span>
+      {stock != null && (
+        <span
+          className={`mt-0.5 block text-[11px] font-semibold ${
+            out
+              ? "text-red-600"
+              : low
+                ? "text-amber-600"
+                : "text-ink-faint"
+          }`}
+        >
+          {out
+            ? "Stok habis"
+            : atLimit
+              ? `Stok habis di keranjang (${stock})`
+              : low
+                ? `Stok menipis: ${stock}`
+                : `Stok: ${stock}`}
+        </span>
+      )}
     </motion.button>
   );
 }
