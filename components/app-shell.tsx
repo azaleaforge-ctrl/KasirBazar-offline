@@ -26,6 +26,7 @@ import { MobileCartDock } from "./cart-sheet";
 import { Toast } from "./stock-toast";
 import { NotificationBell } from "./notification-bell";
 import { ResetCycleManager } from "./reset-cycle-manager";
+import { SystemToast } from "./system-toast";
 
 interface NavItem {
   href: string;
@@ -332,6 +333,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <>
       <ResetCycleManager />
+      <SystemToast />
       {isDesktop ? (
         <DesktopShell>{children}</DesktopShell>
       ) : (

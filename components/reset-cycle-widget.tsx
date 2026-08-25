@@ -9,6 +9,7 @@ import {
   type ResetInfo,
 } from "@/lib/reset-cycle";
 import { playClick } from "@/lib/sound";
+import { useSystemToast } from "@/lib/system-toast";
 
 const THEME = {
   hidden: {
@@ -53,6 +54,9 @@ export function ResetCycleWidget() {
     try {
       await manualReset();
       setInfo(await getResetInfo());
+      useSystemToast
+        .getState()
+        .show("Reset manual selesai, akan refresh otomatis 5 detik lagi");
     } finally {
       setResetting(false);
     }
