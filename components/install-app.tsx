@@ -98,7 +98,7 @@ export function InstallButton() {
             className="max-w-sm text-center text-xs font-medium leading-relaxed text-ink-soft"
             role="note"
           >
-            Instal otomatis butuh localhost/HTTPS. Jika tombol ini tidak
+            Instal otomatis butuh koneksi HTTPS. Jika tombol ini tidak
             merespons, ikuti langkah manual di bawah.
           </motion.p>
         )}

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
+  Heart,
   LayoutDashboard,
   Package,
   ReceiptText,
@@ -37,6 +38,7 @@ const NAV: NavItem[] = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/purchases", label: "Pembelian", icon: ReceiptText },
   { href: "/install", label: "Pasang Aplikasi", shortLabel: "Pasang", icon: Smartphone },
+  { href: "/donasi", label: "Donasi", shortLabel: "Donasi", icon: Heart },
 ];
 
 const TITLES: Record<string, string> = {
@@ -46,6 +48,7 @@ const TITLES: Record<string, string> = {
   "/purchases": "Riwayat Pembelian",
   "/checkout": "Pembayaran",
   "/install": "Pasang Aplikasi",
+  "/donasi": "Donasi",
 };
 
 function useCartCount(): number {
@@ -269,7 +272,7 @@ function MobileShell({ children }: { children: React.ReactNode }) {
         aria-label="Navigasi utama"
         className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/92 pb-[env(safe-area-inset-bottom)] backdrop-blur"
       >
-        <div className="grid h-16 grid-cols-5">
+        <div className="grid h-16 grid-cols-6">
           {NAV.map((item) => {
             const active =
               item.href === "/"

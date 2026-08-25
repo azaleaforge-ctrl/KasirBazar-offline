@@ -184,10 +184,10 @@ export default function InstallPage() {
       >
         <Globe size={14} className="mt-0.5 shrink-0 text-accent" />
         <span>
-          Instal otomatis hanya tersedia saat aplikasi dibuka lewat localhost
-          atau HTTPS. Jika Anda membuka lewat alamat IP WiFi (mis.
-          http://192.168.x.x:3000), gunakan langkah manual di atas — hasilnya
-          sama.
+          Kasir Bazar sudah tayang di Vercel lewat HTTPS, jadi instal otomatis
+          langsung tersedia. Buka lewat browser, lalu pilih “Pasang” di address
+          bar atau menu ⋮. Langkah manual di atas tetap bisa dipakai di semua
+          perangkat jika tombol instal tidak muncul.
         </span>
       </motion.div>
     </div>
