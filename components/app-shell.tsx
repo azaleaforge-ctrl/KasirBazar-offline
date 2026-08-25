@@ -27,6 +27,7 @@ import { Toast } from "./stock-toast";
 import { NotificationBell } from "./notification-bell";
 import { ResetCycleManager } from "./reset-cycle-manager";
 import { SystemToast } from "./system-toast";
+import { DeployWatcher } from "./deploy-watcher";
 
 interface NavItem {
   href: string;
@@ -334,6 +335,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <>
       <ResetCycleManager />
       <SystemToast />
+      <DeployWatcher />
       {isDesktop ? (
         <DesktopShell>{children}</DesktopShell>
       ) : (
