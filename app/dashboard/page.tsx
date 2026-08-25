@@ -20,6 +20,7 @@ import {
   RevenueAreaChart,
 } from "@/components/dashboard-charts";
 import { EmptyState } from "@/components/empty-state";
+import { ResetCycleWidget } from "@/components/reset-cycle-widget";
 
 function dayKey(ts: number): string {
   const d = new Date(ts);
@@ -135,6 +136,8 @@ export default function DashboardPage() {
         </div>
         <ExportButtons withImport onImported={() => void reload()} />
       </header>
+
+      <ResetCycleWidget />
 
       {/* KPI row */}
       <motion.section

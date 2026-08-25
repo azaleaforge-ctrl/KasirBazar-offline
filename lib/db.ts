@@ -73,6 +73,11 @@ export async function getTransactions(): Promise<Transaction[]> {
   return db.getAll("transactions");
 }
 
+export async function clearTransactions(): Promise<void> {
+  const db = await getDB();
+  await db.clear("transactions");
+}
+
 export async function getSettings(): Promise<Record<string, unknown>> {
   const db = await getDB();
   const all = await db.getAll("settings");

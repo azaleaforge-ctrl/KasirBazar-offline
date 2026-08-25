@@ -25,6 +25,7 @@ import { CartPanel } from "./cart-panel";
 import { MobileCartDock } from "./cart-sheet";
 import { Toast } from "./stock-toast";
 import { NotificationBell } from "./notification-bell";
+import { ResetCycleManager } from "./reset-cycle-manager";
 
 interface NavItem {
   href: string;
@@ -328,9 +329,14 @@ function MobileShell({ children }: { children: React.ReactNode }) {
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const isDesktop = useIsDesktop();
-  return isDesktop ? (
-    <DesktopShell>{children}</DesktopShell>
-  ) : (
-    <MobileShell>{children}</MobileShell>
+  return (
+    <>
+      <ResetCycleManager />
+      {isDesktop ? (
+        <DesktopShell>{children}</DesktopShell>
+      ) : (
+        <MobileShell>{children}</MobileShell>
+      )}
+    </>
   );
 }
