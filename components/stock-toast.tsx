@@ -21,19 +21,12 @@ function message(n: AppNotification): string {
 
 export function Toast() {
   const items = useNotifications((s) => s.items);
+  const hydratedAt = useNotifications((s) => s.hydratedAt);
   const markRead = useNotifications((s) => s.markRead);
   const router = useRouter();
   const [toasts, setToasts] = useState<AppNotification[]>([]);
   const seen = useRef<Set<string>>(new Set());
   const timers = useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map());
-
-  // Seed once with pre-existing ids so a page reload doesn't re-toast old
-  // alerts. Runs before the items effect below, which skips seeded ids.
-  useEffect(() => {
-    for (const item of useNotifications.getState().items) {
-      seen.current.add(item.id);
-    }
-  }, []);
 
   // Hiding the popup only — the notification stays in the bell list.
   const dismissToast = (id: string) => {
@@ -46,7 +39,12 @@ export function Toast() {
   };
 
   useEffect(() => {
-    const fresh = items.filter((i) => !seen.current.has(i.id));
+    // Only toast notifications pushed after hydration completed, so a page
+    // reload (which re-hydrates old notifications from IDB) won't re-toast.
+    if (hydratedAt === null) return;
+    const fresh = items.filter(
+      (i) => i.createdAt > hydratedAt && !seen.current.has(i.id)
+    );
     if (fresh.length === 0) return;
     for (const item of fresh) {
       seen.current.add(item.id);
@@ -59,7 +57,7 @@ export function Toast() {
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [items]);
+  }, [items, hydratedAt]);
 
   // Clear any pending timers on unmount.
   useEffect(() => {

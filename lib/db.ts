@@ -1,5 +1,6 @@
 import { openDB, type DBSchema, type IDBPDatabase } from "idb";
 import type { Product, Transaction } from "./types";
+import type { AppNotification } from "./notifications";
 
 interface KasirDB extends DBSchema {
   products: {
@@ -14,10 +15,14 @@ interface KasirDB extends DBSchema {
     key: string;
     value: { key: string; value: unknown };
   };
+  notifications: {
+    key: string;
+    value: AppNotification;
+  };
 }
 
 const DB_NAME = "kasir-bazar";
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 
 let dbPromise: Promise<IDBPDatabase<KasirDB>> | null = null;
 
@@ -36,6 +41,9 @@ export function getDB(): Promise<IDBPDatabase<KasirDB>> {
         }
         if (!db.objectStoreNames.contains("settings")) {
           db.createObjectStore("settings", { keyPath: "key" });
+        }
+        if (!db.objectStoreNames.contains("notifications")) {
+          db.createObjectStore("notifications", { keyPath: "id" });
         }
       },
     });
@@ -91,4 +99,25 @@ export async function getSettings(): Promise<Record<string, unknown>> {
 export async function setSetting(key: string, value: unknown): Promise<void> {
   const db = await getDB();
   await db.put("settings", { key, value });
+}
+
+export async function getNotifications(): Promise<AppNotification[]> {
+  const db = await getDB();
+  const all = await db.getAll("notifications");
+  return all.sort((a, b) => b.createdAt - a.createdAt);
+}
+
+export async function putNotification(n: AppNotification): Promise<void> {
+  const db = await getDB();
+  await db.put("notifications", n);
+}
+
+export async function deleteNotification(id: string): Promise<void> {
+  const db = await getDB();
+  await db.delete("notifications", id);
+}
+
+export async function clearNotifications(): Promise<void> {
+  const db = await getDB();
+  await db.clear("notifications");
 }
