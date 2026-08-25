@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { Product } from "@/lib/types";
 import { playClick, playError } from "@/lib/sound";
+import { formatThousands } from "@/lib/format";
 import { Modal } from "./modal";
 import { PhotoInput } from "./photo-input";
 
@@ -31,7 +32,7 @@ export function ProductForm({
 
   const submit = async () => {
     const cleanName = name.trim();
-    const cleanPrice = Number.parseInt(price.replace(/\D/g, ""), 10);
+    const cleanPrice = Number.parseInt(price, 10);
     if (!cleanName) {
       playError();
       setError("Nama produk wajib diisi.");
@@ -105,7 +106,7 @@ export function ProductForm({
               <input
                 type="text"
                 inputMode="numeric"
-                value={price}
+                value={formatThousands(price)}
                 onChange={(e) =>
                   setPrice(e.target.value.replace(/[^\d]/g, ""))
                 }

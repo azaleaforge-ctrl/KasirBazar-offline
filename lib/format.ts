@@ -8,6 +8,13 @@ export function formatRupiah(n: number): string {
   return rupiahFormatter.format(n);
 }
 
+export function formatThousands(input: string | number): string {
+  const digits =
+    typeof input === "number" ? String(input) : input.replace(/\D/g, "");
+  if (!digits) return "";
+  return digits.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
 function pad(n: number): string {
   return n < 10 ? `0${n}` : `${n}`;
 }
