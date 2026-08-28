@@ -107,7 +107,7 @@ function PurchaseRow({
                     <span className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-lg bg-accent-tint text-accent/60">
                       {i.photo ? (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={i.photo} alt="" className="h-full w-full object-cover" />
+                         <img src={i.photo} alt={i.name} className="h-full w-full object-cover" />
                       ) : null}
                     </span>
                     <span className="min-w-0 flex-1 truncate text-sm font-semibold">

@@ -23,7 +23,7 @@ export function CartLine({ item }: { item: CartItem }) {
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={item.photo}
-            alt=""
+            alt={item.name}
             className="h-full w-full object-cover"
           />
         ) : (

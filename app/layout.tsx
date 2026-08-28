@@ -17,9 +17,41 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "Kasir Bazar - Kasir Offline",
+  metadataBase: new URL("https://kasir-bazar-offline-pi.vercel.app"),
+  title: {
+    default: "Kasir Bazar - Kasir Offline",
+    template: "%s - Kasir Bazar",
+  },
   description:
     "Aplikasi kasir offline untuk bazar & warung. Catat penjualan, kelola produk, dan lihat laporan - tanpa internet.",
+  applicationName: "Kasir Bazar",
+  manifest: "/manifest.json",
+  keywords: [
+    "kasir offline",
+    "aplikasi kasir",
+    "kasir bazar",
+    "kasir warung",
+    "point of sale",
+    "aplikasi kasir gratis",
+    "kasir tanpa internet",
+  ],
+  authors: [{ name: "Kasir Bazar" }],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "id_ID",
+    url: "https://kasir-bazar-offline-pi.vercel.app",
+    siteName: "Kasir Bazar",
+    title: "Kasir Bazar - Kasir Offline",
+    description:
+      "Aplikasi kasir offline untuk bazar & warung. Catat penjualan, kelola produk, dan lihat laporan - tanpa internet.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kasir Bazar - Kasir Offline",
+    description:
+      "Aplikasi kasir offline untuk bazar & warung. Catat penjualan, kelola produk, dan lihat laporan - tanpa internet.",
+  },
 };
 
 export const viewport: Viewport = {

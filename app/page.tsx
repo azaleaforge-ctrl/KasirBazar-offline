@@ -68,6 +68,23 @@ export default function PosPage() {
 
   return (
     <div className="mx-auto max-w-[1200px]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            name: "Kasir Bazar",
+            applicationCategory: "BusinessApplication",
+            operatingSystem: "Web, Android, iOS, Windows, macOS",
+            offers: { "@type": "Offer", price: "0", priceCurrency: "IDR" },
+            description:
+              "Aplikasi kasir offline untuk bazar & warung. Catat penjualan, kelola produk, dan lihat laporan tanpa internet.",
+            url: "https://kasir-bazar-offline-pi.vercel.app",
+            inLanguage: "id",
+          }),
+        }}
+      />
       <header className="mb-5 flex items-center gap-3">
         <span className="hidden h-11 w-11 place-items-center rounded-xl bg-accent-tint text-accent ring-1 ring-accent/10 sm:grid">
           <Store size={20} strokeWidth={2} />

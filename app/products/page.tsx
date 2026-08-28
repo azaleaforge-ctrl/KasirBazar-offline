@@ -217,7 +217,7 @@ export default function ProductsPage() {
                     <span className="grid h-16 w-16 shrink-0 place-items-center overflow-hidden rounded-xl bg-accent-tint text-accent/60">
                       {p.photo ? (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={p.photo} alt="" className="h-full w-full object-cover" />
+                         <img src={p.photo} alt={p.name} className="h-full w-full object-cover" />
                       ) : (
                         <Package size={24} strokeWidth={1.7} />
                       )}

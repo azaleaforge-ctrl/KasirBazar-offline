@@ -28,6 +28,7 @@ import { NotificationBell } from "./notification-bell";
 import { ResetCycleManager } from "./reset-cycle-manager";
 import { SystemToast } from "./system-toast";
 import { DeployWatcher } from "./deploy-watcher";
+import { SiteFooter } from "./site-footer";
 
 interface NavItem {
   href: string;
@@ -221,6 +222,7 @@ function DesktopShell({ children }: { children: React.ReactNode }) {
           <main className="min-w-0 flex-1 px-8 py-7">{children}</main>
           {onPos && <CartPanel />}
         </div>
+        <SiteFooter />
       </div>
 
       <Toast />
@@ -276,6 +278,8 @@ function MobileShell({ children }: { children: React.ReactNode }) {
       </header>
 
       <main className="px-4 pt-4">{children}</main>
+
+      <SiteFooter />
 
       {pathname === "/" && <MobileCartDock />}
 
