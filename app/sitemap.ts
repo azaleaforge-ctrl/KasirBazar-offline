@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 const BASE = "https://kasir-bazar-offline-pi.vercel.app";
-const routes = ["", "/tentang", "/products", "/dashboard", "/purchases", "/checkout", "/install", "/donasi"];
+const routes = ["", "/pos", "/products", "/dashboard", "/purchases", "/checkout", "/install", "/donasi"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((r) => ({

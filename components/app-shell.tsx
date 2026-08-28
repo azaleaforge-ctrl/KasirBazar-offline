@@ -39,7 +39,7 @@ interface NavItem {
 }
 
 const NAV: NavItem[] = [
-  { href: "/", label: "POS", icon: ShoppingBasket },
+  { href: "/pos", label: "POS", icon: ShoppingBasket },
   { href: "/products", label: "Produk", icon: Package },
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/purchases", label: "Pembelian", icon: ReceiptText },
@@ -48,7 +48,7 @@ const NAV: NavItem[] = [
 ];
 
 const TITLES: Record<string, string> = {
-  "/": "Point of Sale",
+  "/pos": "Point of Sale",
   "/products": "Produk",
   "/dashboard": "Dashboard",
   "/purchases": "Riwayat Pembelian",
@@ -134,7 +134,7 @@ function StatusCapsule({ compact = false }: { compact?: boolean }) {
 function DesktopShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const title = TITLES[pathname] ?? "Kasir Bazar";
-  const onPos = pathname === "/";
+  const onPos = pathname === "/pos";
 
   return (
     <div className="min-h-dvh">
@@ -239,7 +239,7 @@ function MobileShell({ children }: { children: React.ReactNode }) {
   const openCart = () => {
     playClick();
     requestOpenCart();
-    if (pathname !== "/") router.push("/");
+    if (pathname !== "/pos") router.push("/pos");
   };
 
   return (
@@ -260,7 +260,7 @@ function MobileShell({ children }: { children: React.ReactNode }) {
             </span>
           </Link>
 
-          {pathname !== "/checkout" && (
+          {pathname !== "/checkout" && pathname !== "/" && (
             <span className="flex shrink-0 items-center gap-2">
               <NotificationBell />
               <button
@@ -281,7 +281,7 @@ function MobileShell({ children }: { children: React.ReactNode }) {
 
       <SiteFooter />
 
-      {pathname === "/" && <MobileCartDock />}
+      {pathname === "/pos" && <MobileCartDock />}
 
       <nav
         aria-label="Navigasi utama"

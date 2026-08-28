@@ -7,7 +7,7 @@ const LINKS = [
   { href: "/purchases", label: "Pembelian" },
   { href: "/install", label: "Pasang Aplikasi" },
   { href: "/donasi", label: "Donasi" },
-  { href: "/tentang", label: "Tentang" },
+  { href: "/", label: "Beranda" },
 ];
 
 export function SiteFooter() {

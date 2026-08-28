@@ -3,7 +3,7 @@
   "name": "Kasir Bazar",
   "short_name": "Kasir",
   "description": "Aplikasi kasir offline untuk bazar & warung. Catat penjualan, kelola produk, dan lihat laporan - tanpa internet.",
-  "start_url": "/",
+  "start_url": "/pos",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",

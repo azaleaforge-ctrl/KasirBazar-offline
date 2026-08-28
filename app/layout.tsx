@@ -22,21 +22,20 @@ export const metadata: Metadata = {
     google: "y3TH8ob9EoyHVIl5tGx2c9NpyEHyEdokbgcGK935VZc",
   },
   title: {
-    default: "Kasir Bazar - Kasir Offline",
+    default: "Kasir Bazar — Aplikasi Kasir Offline Gratis untuk Bazar & Warung",
     template: "%s - Kasir Bazar",
   },
   description:
-    "Aplikasi kasir offline untuk bazar & warung. Catat penjualan, kelola produk, dan lihat laporan - tanpa internet.",
+    "Aplikasi kasir offline gratis untuk bazar & warung. Catat penjualan, kelola produk, lihat laporan, dan cetak struk tanpa internet. Mode PWA, bisa dipasang di HP.",
   applicationName: "Kasir Bazar",
   manifest: "/manifest.json",
   keywords: [
-    "kasir offline",
-    "aplikasi kasir",
+    "aplikasi kasir offline",
     "kasir bazar",
     "kasir warung",
-    "point of sale",
-    "aplikasi kasir gratis",
     "kasir tanpa internet",
+    "aplikasi kasir gratis",
+    "point of sale offline",
   ],
   authors: [{ name: "Kasir Bazar" }],
   alternates: { canonical: "/" },
@@ -45,15 +44,15 @@ export const metadata: Metadata = {
     locale: "id_ID",
     url: "https://kasir-bazar-offline-pi.vercel.app",
     siteName: "Kasir Bazar",
-    title: "Kasir Bazar - Kasir Offline",
+    title: "Kasir Bazar — Aplikasi Kasir Offline Gratis untuk Bazar & Warung",
     description:
-      "Aplikasi kasir offline untuk bazar & warung. Catat penjualan, kelola produk, dan lihat laporan - tanpa internet.",
+      "Aplikasi kasir offline gratis untuk bazar & warung. Catat penjualan, kelola produk, lihat laporan, dan cetak struk tanpa internet. Mode PWA, bisa dipasang di HP.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kasir Bazar - Kasir Offline",
+    title: "Kasir Bazar — Aplikasi Kasir Offline Gratis untuk Bazar & Warung",
     description:
-      "Aplikasi kasir offline untuk bazar & warung. Catat penjualan, kelola produk, dan lihat laporan - tanpa internet.",
+      "Aplikasi kasir offline gratis untuk bazar & warung. Catat penjualan, kelola produk, lihat laporan, dan cetak struk tanpa internet. Mode PWA, bisa dipasang di HP.",
   },
 };
 
