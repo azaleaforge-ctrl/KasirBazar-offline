@@ -18,6 +18,9 @@ const bricolage = Bricolage_Grotesque({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kasir-bazar-offline-pi.vercel.app"),
+  verification: {
+    google: "y3TH8ob9EoyHVIl5tGx2c9NpyEHyEdokbgcGK935VZc",
+  },
   title: {
     default: "Kasir Bazar - Kasir Offline",
     template: "%s - Kasir Bazar",
